@@ -1,0 +1,43 @@
+{% extends 'filament_manager/base.html' %}
+
+{% block title %}Cambios de Color - {{ printer.name }}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Cambios de Color - {{ printer.name }}</h2>
+    <a href="{% url 'filament_manager:color_change_create' %}" class="btn btn-primary">Nuevo Cambio de Color</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Filamento Origen</th>
+                {% for filament in unique_filaments %}
+                    <th>{{ filament.color }} ({{ filament.brand.name }})</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for filament in unique_filaments %}
+            <tr>
+                <td>{{ filament.color }} ({{ filament.brand.name }})</td>
+                {% for target_filament in unique_filaments %}
+                    <td>
+                        {% with color_change=color_changes|get_item:filament.id|get_item:target_filament.id %}
+                            {% if color_change %}
+                                {{ color_change.value_1_to_2 }}
+                                <a href="{% url 'filament_manager:color_change_edit' color_change.id %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                                <a href="{% url 'filament_manager:color_change_delete' color_change.id %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                            {% else %}
+                                <a href="{% url 'filament_manager:color_change_create' %}?filament_1={{ filament.id }}&filament_2={{ target_filament.id }}&printer={{ printer.id }}" class="btn btn-sm btn-outline-primary">Agregar</a>
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

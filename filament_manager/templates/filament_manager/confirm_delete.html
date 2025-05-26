@@ -1,0 +1,21 @@
+{% extends 'filament_manager/base.html' %}
+
+{% block title %}Eliminar {{ object_name|title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>¿Estás seguro de eliminar esta {{ object_name }}?</h2>
+    </div>
+    <div class="card-body">
+        <p>{{ object }}</p>
+        <div class="d-flex justify-content-end">
+            <a href="{% url redirect_url %}" class="btn btn-secondary me-2">Cancelar</a>
+            <form method="post" action="" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

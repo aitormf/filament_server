@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class FilamentConfig(AppConfig):
+class FilamentManagerConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'filament'
+    name = 'filament_manager'

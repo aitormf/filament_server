@@ -1,0 +1,85 @@
+{% extends 'filament_manager/base.html' %}
+
+{% block title %}Filamentos{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Filamentos</h2>
+    <a href="{% url 'filament_manager:filament_create' %}" class="btn btn-primary">Nuevo Filamento</a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-3">
+                <label for="printer" class="form-label">Impresora</label>
+                <select name="printer" id="printer" class="form-select">
+                    <option value="">Todas las impresoras</option>
+                    {% for printer in printers %}
+                    <option value="{{ printer.id }}" {% if selected_printer == printer.id %}selected{% endif %}>
+                        {{ printer.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="brand" class="form-label">Marca</label>
+                <select name="brand" id="brand" class="form-select">
+                    <option value="">Todas las marcas</option>
+                    {% for brand in brands %}
+                    <option value="{{ brand.id }}" {% if selected_brand == brand.id %}selected{% endif %}>
+                        {{ brand.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="filament_type" class="form-label">Tipo de Filamento</label>
+                <select name="filament_type" id="filament_type" class="form-select">
+                    <option value="">Todos los tipos</option>
+                    {% for filament_type in filament_types %}
+                    <option value="{{ filament_type.id }}" {% if selected_filament_type == filament_type.id %}selected{% endif %}>
+                        {{ filament_type.brand.name }} - {{ filament_type.material }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Marca</th>
+                <th>Tipo de Filamento</th>
+                <th>Cantidad</th>
+                <th>Color</th>
+                <th>RAL</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for filament in filaments %}
+            <tr>
+                <td>{{ filament.brand.name }}</td>
+                <td>{{ filament.filament_type.material }}</td>
+                <td>{{ filament.quantity }}</td>
+                <td>{{ filament.color }}</td>
+                <td>{{ filament.ral }}</td>
+                <td>
+                    <div class="btn-group">
+                        <a href="{% url 'filament_manager:filament_edit' filament.id %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <a href="{% url 'filament_manager:filament_delete' filament.id %}" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
