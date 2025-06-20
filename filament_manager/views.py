@@ -255,9 +255,9 @@ def color_change_create(request):
         if form.is_valid():
             # Crear el cambio de color
             color_change = ColorChange.objects.create(
-                filament_1_id=form.cleaned_data['filament_1'],
-                filament_2_id=form.cleaned_data['filament_2'],
-                printer_id=form.cleaned_data['printer'],
+                filament_1=form.cleaned_data['filament_1'],
+                filament_2=form.cleaned_data['filament_2'],
+                printer=form.cleaned_data['printer'],
                 value_1_to_2=form.cleaned_data['value_1_to_2'],
                 value_2_to_1=form.cleaned_data['value_2_to_1']
             )
