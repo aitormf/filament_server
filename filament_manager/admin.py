@@ -1,30 +1,30 @@
 from django.contrib import admin
-from mongoengine.django.mongo_admin import DocumentAdmin
 from .models import Brand, Printer, FilamentType, Filament, FilamentConfiguration, ColorChange
 
-class BrandAdmin(DocumentAdmin):
+
+class BrandAdmin(admin.ModelAdmin):
     list_display = ('name', 'website')
     search_fields = ('name',)
 
-class PrinterAdmin(DocumentAdmin):
+class PrinterAdmin(admin.ModelAdmin):
     list_display = ('name', 'laminator_code')
     search_fields = ('name', 'laminator_code')
 
-class FilamentTypeAdmin(DocumentAdmin):
+class FilamentTypeAdmin(admin.ModelAdmin):
     list_display = ('brand', 'material')
     list_filter = ('brand',)
     search_fields = ('material',)
 
-class FilamentAdmin(DocumentAdmin):
+class FilamentAdmin(admin.ModelAdmin):
     list_display = ('brand', 'filament_type', 'quantity', 'color', 'ral')
     list_filter = ('brand', 'filament_type')
     search_fields = ('color', 'ral')
 
-class FilamentConfigurationAdmin(DocumentAdmin):
+class FilamentConfigurationAdmin(admin.ModelAdmin):
     list_display = ('filament_type', 'printer', 'temperature', 'flow', 'pressure_advance', 'retraction_distance', 'bed_temperature')
     list_filter = ('filament_type', 'printer')
 
-class ColorChangeAdmin(DocumentAdmin):
+class ColorChangeAdmin(admin.ModelAdmin):
     list_display = ('filament_1', 'filament_2', 'printer', 'value_1_to_2', 'value_2_to_1')
     list_filter = ('printer',)
 

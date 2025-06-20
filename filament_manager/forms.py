@@ -26,7 +26,15 @@ class FilamentConfigurationForm(forms.ModelForm):
         model = FilamentConfiguration
         fields = ['filament_type', 'printer', 'temperature', 'flow', 'pressure_advance', 'retraction_distance', 'bed_temperature']
 
-class ColorChangeForm(forms.ModelForm):
-    class Meta:
-        model = ColorChange
-        fields = ['filament_1', 'filament_2', 'printer', 'value_1_to_2', 'value_2_to_1']
+class ColorChangeForm(forms.Form):
+    filament_1 = forms.ChoiceField(label='Filamento 1')
+    filament_2 = forms.ChoiceField(label='Filamento 2')
+    printer = forms.ChoiceField(label='Impresora')
+    value_1_to_2 = forms.FloatField(label='Valor 1→2')
+    value_2_to_1 = forms.FloatField(label='Valor 2→1')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['filament_1'].choices = []
+        self.fields['filament_2'].choices = []
+        self.fields['printer'].choices = []

@@ -1,0 +1,55 @@
+{% extends 'filament_manager/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Tipos de Filamento</h2>
+        <a href="{% url 'filament_manager:filament_type_create' %}" class="btn btn-primary">Nuevo Tipo</a>
+    </div>
+    
+    {% if filament_types %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Marca</th>
+                    <th>Material</th>
+                    <th>Configuraciones</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for filament_type in filament_types %}
+                <tr>
+                    <td>{{ filament_type.brand.name }}</td>
+                    <td>{{ filament_type.material }}</td>
+                    <td>
+                        <a href="{% url 'filament_manager:filament_configuration_list' %}?filament_type={{ filament_type.id }}" 
+                           class="btn btn-sm btn-info">
+                            <i class="fas fa-cog"></i> Configuraciones
+                        </a>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{% url 'filament_manager:filament-type-update' filament_type.id %}" 
+                               class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <a href="{% url 'filament_manager:filament-type-delete' filament_type.id %}" 
+                               class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i> Eliminar
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        No hay tipos de filamento registrados.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

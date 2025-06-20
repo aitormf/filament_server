@@ -1,0 +1,48 @@
+{% extends 'filament_manager/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Cambios de Color</h2>
+        <a href="{% url 'filament_manager:color_change_create' %}" class="btn btn-primary">Nuevo Cambio</a>
+    </div>
+    
+    {% if color_changes %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Filamento 1</th>
+                    <th>Filamento 2</th>
+                    <th>Impresora</th>
+                    <th>Valor 1→2</th>
+                    <th>Valor 2→1</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for change in color_changes %}
+                <tr>
+                    <td>{{ change.filament_1.color }} ({{ change.filament_1.brand.name }})</td>
+                    <td>{{ change.filament_2.color }} ({{ change.filament_2.brand.name }})</td>
+                    <td>{{ change.printer.name }}</td>
+                    <td>{{ change.value_1_to_2 }}</td>
+                    <td>{{ change.value_2_to_1 }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{% url 'filament_manager:color_change_edit' change.id %}" class="btn btn-sm btn-warning">Editar</a>
+                            <a href="{% url 'filament_manager:color_change_delete' change.id %}" class="btn btn-sm btn-danger">Eliminar</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        No hay cambios de color registrados.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

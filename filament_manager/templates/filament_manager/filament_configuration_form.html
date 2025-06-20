@@ -1,0 +1,44 @@
+{% extends 'filament_manager/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Crear Configuración de Filamento</h2>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="{{ form.filament_type.id_for_label }}" class="form-label">Tipo de Filamento</label>
+            {{ form.filament_type }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.printer.id_for_label }}" class="form-label">Impresora</label>
+            {{ form.printer }}
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="{{ form.temperature.id_for_label }}" class="form-label">Temperatura (°C)</label>
+                {{ form.temperature }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="{{ form.flow.id_for_label }}" class="form-label">Flujo (%)</label>
+                {{ form.flow }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="{{ form.pressure_advance.id_for_label }}" class="form-label">Avance de Presión</label>
+                {{ form.pressure_advance }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="{{ form.retraction_distance.id_for_label }}" class="form-label">Distancia de Retracción (mm)</label>
+                {{ form.retraction_distance }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.bed_temperature.id_for_label }}" class="form-label">Temperatura de Cama (°C)</label>
+            {{ form.bed_temperature }}
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'filament_manager:filament_configuration_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

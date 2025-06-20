@@ -15,22 +15,32 @@ urlpatterns = [
     # Impresoras
     path('printers/', views.printer_list, name='printer_list'),
     path('printers/create/', views.printer_create, name='printer_create'),
+    path('printers/<int:id>/edit/', views.printer_edit, name='printer_edit'),
+    path('printers/<int:id>/delete/', views.printer_delete, name='printer_delete'),
     
     # Tipos de filamento
     path('filament-types/', views.filament_type_list, name='filament_type_list'),
     path('filament-types/create/', views.filament_type_create, name='filament_type_create'),
+    path('filament-types/<int:id>/edit/', views.filament_type_edit, name='filament-type-update'),
+    path('filament-types/<int:id>/delete/', views.filament_type_delete, name='filament-type-delete'),
     
     # Filamentos
     path('filaments/', views.filament_list, name='filament_list'),
     path('filaments/create/', views.filament_create, name='filament_create'),
+    path('filaments/<int:id>/edit/', views.filament_edit, name='filament_edit'),
+    path('filaments/<int:id>/delete/', views.filament_delete, name='filament_delete'),
     
     # Configuraciones de filamento
     path('filament-configurations/', views.filament_configuration_list, name='filament_configuration_list'),
     path('filament-configurations/create/', views.filament_configuration_create, name='filament_configuration_create'),
+    path('filament-configurations/<int:id>/edit/', views.filament_configuration_edit, name='filament_configuration_edit'),
+    path('filament-configurations/<int:id>/delete/', views.filament_configuration_delete, name='filament_configuration_delete'),
     path('filament-configurations/<int:printer_id>/', views.get_filament_configurations, name='filament_configurations'),
     
     # Cambios de color
     path('color-changes/', views.color_change_list, name='color_change_list'),
     path('color-changes/create/', views.color_change_create, name='color_change_create'),
+    path('color-changes/<int:id>/edit/', views.color_change_edit, name='color_change_edit'),
+    path('color-changes/<int:id>/delete/', views.color_change_delete, name='color_change_delete'),
     path('color-changes/<int:printer_id>/', views.get_filament_color_changes, name='filament_color_changes'),
 ]

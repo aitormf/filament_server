@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mongoengine.django.mongo_auth',
     'filament_manager',
 ]
 
@@ -56,7 +55,7 @@ ROOT_URLCONF = 'filament_server.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -78,9 +77,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    'mongo': {
-        'ENGINE': 'django.db.backends.dummy',
     }
 }
 
@@ -97,7 +93,6 @@ MONGODB_DATABASES = {
 }
 
 AUTHENTICATION_BACKENDS = [
-    'mongoengine.django.auth.MongoEngineBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 

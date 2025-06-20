@@ -1,0 +1,34 @@
+{% extends 'filament_manager/base.html' %}
+
+{% block title %}{% if color_change %}Editar Cambio de Color{% else %}Crear Cambio de Color{% endif %}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{% if color_change %}Editar Cambio de Color{% else %}Crear Cambio de Color{% endif %}</h2>
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="{{ form.filament_1.id_for_label }}" class="form-label">Filamento 1</label>
+            {{ form.filament_1 }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.filament_2.id_for_label }}" class="form-label">Filamento 2</label>
+            {{ form.filament_2 }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.printer.id_for_label }}" class="form-label">Impresora</label>
+            {{ form.printer }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.value_1_to_2.id_for_label }}" class="form-label">Valor 1→2</label>
+            {{ form.value_1_to_2 }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.value_2_to_1.id_for_label }}" class="form-label">Valor 2→1</label>
+            {{ form.value_2_to_1 }}
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'filament_manager:color_change_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
